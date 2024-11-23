@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>PvbeLLN's Blog</title><link>https://pvbelln.github.io</link><description>Rebirth.</description><copyright>PvbeLLN's Blog</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://avatars.githubusercontent.com/u/67148986</url><title>avatar</title><link>https://pvbelln.github.io</link></image><lastBuildDate>Sat, 23 Nov 2024 06:59:53 +0000</lastBuildDate><managingEditor>PvbeLLN's Blog</managingEditor><ttl>60</ttl><webMaster>PvbeLLN's Blog</webMaster><item><title>CF189B 题解</title><link>https://pvbelln.github.io/post/CF189B%20-ti-jie.html</link><description>### 分析：&#13;
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>PvbeLLN's Blog</title><link>https://pvbelln.github.io</link><description>Rebirth.</description><copyright>PvbeLLN's Blog</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://avatars.githubusercontent.com/u/67148986</url><title>avatar</title><link>https://pvbelln.github.io</link></image><lastBuildDate>Sat, 23 Nov 2024 16:10:13 +0000</lastBuildDate><managingEditor>PvbeLLN's Blog</managingEditor><ttl>60</ttl><webMaster>PvbeLLN's Blog</webMaster><item><title>CF189B 题解</title><link>https://pvbelln.github.io/post/CF189B%20-ti-jie.html</link><description>### 分析：&#13;
 &#13;
 题目中指出菱形的顶点在矩形内部或边上，而且对角线平行于坐标轴，于是我们可以把每一个菱形对应到一个矩形，如图所示：&#13;
 &#13;
@@ -7,7 +7,11 @@
 &#13;
 （红色的为符合题意的菱形，绿色的为对应的矩形）&#13;
 &#13;
-又因为 $h$ 与 $w$ 均为整数，于是可以根据排列组合的方法得到不同的小矩形的个数。</description><guid isPermaLink="true">https://pvbelln.github.io/post/CF189B%20-ti-jie.html</guid><pubDate>Sat, 23 Nov 2024 06:55:37 +0000</pubDate></item><item><title>题解：UVA11614 Etruscan Warriors Never Play Chess</title><link>https://pvbelln.github.io/post/ti-jie-%EF%BC%9AUVA11614%20Etruscan%20Warriors%20Never%20Play%20Chess.html</link><description>## UVA11614&#13;
+又因为 $h$ 与 $w$ 均为整数，于是可以根据排列组合的方法得到不同的小矩形的个数。</description><guid isPermaLink="true">https://pvbelln.github.io/post/CF189B%20-ti-jie.html</guid><pubDate>Sat, 23 Nov 2024 06:55:37 +0000</pubDate></item><item><title>题解：UVA12015 Google is Feeling Lucky</title><link>https://pvbelln.github.io/post/ti-jie-%EF%BC%9AUVA12015%20Google%20is%20Feeling%20Lucky.html</link><description>## UVA 12015&#13;
+&#13;
+### 题目大意&#13;
+&#13;
+多组数据，每组数据给出 $10$ 个网址以及它们各自的相关度，输出相关度最高的网址。</description><guid isPermaLink="true">https://pvbelln.github.io/post/ti-jie-%EF%BC%9AUVA12015%20Google%20is%20Feeling%20Lucky.html</guid><pubDate>Sat, 23 Nov 2024 06:53:27 +0000</pubDate></item><item><title>题解：UVA11614 Etruscan Warriors Never Play Chess</title><link>https://pvbelln.github.io/post/ti-jie-%EF%BC%9AUVA11614%20Etruscan%20Warriors%20Never%20Play%20Chess.html</link><description>## UVA11614&#13;
 &#13;
 ### 思路&#13;
 &#13;
