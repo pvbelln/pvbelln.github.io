@@ -191,25 +191,6 @@
   
   
   <entry>
-    <title>图片测试</title>
-    <link href="/2025/07/05/pic-test-2025/"/>
-    <url>/2025/07/05/pic-test-2025/</url>
-    
-    <content type="html"><![CDATA[<h1>图片测试</h1><h2 id="P1">P1</h2><p><img src="/img/test_img/t1.jpg" alt=""></p><h2 id="P2">P2</h2><p>这是第二张图片</p><p><img src="/img/test_img/t2.jpg" alt=""></p><p>第二张图片结束</p><h2 id="P3">P3</h2><p><img src="/img/test_img/t3.jpg" alt=""></p><h2 id="P4">P4</h2><div class="note note-success">            <p><img src="/img/test_img/t4.jpg" alt=""></p>          </div><p><strong>图片测试结束</strong></p><div class="note note-warning">            <p>P1 版权归 <code>@VIPER</code> 所有；</p><p>P2 ~ P4 来源 Pixiv，版权归原作者所有。</p>          </div>]]></content>
-    
-    
-    
-    <tags>
-      
-      <tag>测试</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
     <title>题解：UVA12725 Fat and Orial</title>
     <link href="/2025/07/05/sol-uva12725/"/>
     <url>/2025/07/05/sol-uva12725/</url>
