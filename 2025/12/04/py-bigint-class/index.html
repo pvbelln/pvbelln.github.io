@@ -1,0 +1,981 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fav.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="PvbeLLN">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="BigInteger 类 技术报告 综述   模块目的: 实现一个支持任意长度整数的类 BigInteger，提供加、减、乘、整除、幂运算以及若干辅助函数，避免 Python 内置整型在教学场景中不可见的实现细节。   实现语言&#x2F;文件: Python, 文件 lab3.py。   “BigInteger 类”详述   说明: 用字符串表示大整数的数位并记录符号，支持通过字符串或另一个 BigInt">
+<meta property="og:type" content="article">
+<meta property="og:title" content="大整数运算 BigInteger class 的 Python 实现">
+<meta property="og:url" content="https://pvbelln.github.io/2025/12/04/py-bigint-class/index.html">
+<meta property="og:site_name" content="PvbeLLN&#39;s Blog">
+<meta property="og:description" content="BigInteger 类 技术报告 综述   模块目的: 实现一个支持任意长度整数的类 BigInteger，提供加、减、乘、整除、幂运算以及若干辅助函数，避免 Python 内置整型在教学场景中不可见的实现细节。   实现语言&#x2F;文件: Python, 文件 lab3.py。   “BigInteger 类”详述   说明: 用字符串表示大整数的数位并记录符号，支持通过字符串或另一个 BigInt">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-12-04T08:28:58.000Z">
+<meta property="article:modified_time" content="2025-12-04T08:32:00.167Z">
+<meta property="article:author" content="PvbeLLN">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="CS">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>大整数运算 BigInteger class 的 Python 实现 - PvbeLLN&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css" />
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/KaTeX/0.16.2/katex.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"pvbelln.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":"3bed8527f56d7b48a233eb0a4aae4362","google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>PvbeLLN&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/article.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="大整数运算 BigInteger class 的 Python 实现"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-12-04 16:28" pubdate>
+          2025年12月4日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          14 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">大整数运算 BigInteger class 的 Python 实现</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1>BigInteger 类 技术报告</h1>
+<h2 id="综述">综述</h2>
+<ul>
+<li>
+<p><strong>模块目的</strong>: 实现一个支持任意长度整数的类 <code>BigInteger</code>，提供加、减、乘、整除、幂运算以及若干辅助函数，避免 Python 内置整型在教学场景中不可见的实现细节。</p>
+</li>
+<li>
+<p><strong>实现语言/文件</strong>: Python, 文件 <code>lab3.py</code>。</p>
+</li>
+</ul>
+<h2 id="“BigInteger-类”详述"><strong>“<code>BigInteger</code> 类”详述</strong></h2>
+<ul>
+<li>
+<p><strong>说明</strong>: 用字符串表示大整数的数位并记录符号，支持通过字符串或另一个 <code>BigInteger</code> 构造对象，重载了常见算术运算符。</p>
+</li>
+<li>
+<p><strong>内部表示</strong>:</p>
+<ul>
+<li><code>self.digits</code>: 字符串形式的非负数部分。</li>
+<li><code>self.sgn</code>: 符号，取值 <code>1</code> 或 <code>-1</code>，但当 <code>digits == '0'</code> 时固定为 <code>1</code>（即零为非负）。</li>
+</ul>
+</li>
+</ul>
+<h3 id="主要方法与函数说明：">主要方法与函数说明：</h3>
+<ul>
+<li>
+<p><strong><code>__init__(self, val)</code></strong></p>
+<ul>
+<li>功能: 构造函数，可接受 <code>str</code> 或另一个 <code>BigInteger</code>。</li>
+<li>参数:
+<ul>
+<li><code>val</code>: 若为 <code>str</code>，可以以可选前导 <code>-</code> 表示负数；若为 <code>BigInteger</code>，则按值拷贝。</li>
+</ul>
+</li>
+<li>行为: 去除前导零（调用 <code>formalizeDigits</code>），设置 <code>sgn</code>（若数值为零则强制为正号）。</li>
+</ul>
+</li>
+<li>
+<p><strong><code>__getitem__(self, key)</code></strong></p>
+<ul>
+<li>功能: 支持下标访问 <code>bigint[i]</code> 返回 <code>self.digits[key]</code>，直接映射到内部字符串。</li>
+<li>返回: 单个字符（数位字符）。</li>
+</ul>
+</li>
+<li>
+<p><strong><code>__len__(self)</code></strong></p>
+<ul>
+<li>功能: 返回 <code>self.digits</code> 的长度（即数位数）。</li>
+</ul>
+</li>
+<li>
+<p><strong><code>__str__(self)</code></strong></p>
+<ul>
+<li>功能: 将 <code>BigInteger</code> 转换为常见字符串表示，零返回 <code>'0'</code>，否则根据 <code>sgn</code> 添加 <code>-</code> 前缀并拼接 <code>digits</code>。</li>
+</ul>
+</li>
+<li>
+<p><strong><code>__add__(self, other)</code></strong></p>
+<ul>
+<li>功能: 重载加法运算 <code>+</code>。</li>
+<li>算法: 根据符号决定是执行绝对值相加（调用 <code>myPlus</code>）还是绝对值相减（调用 <code>mySub</code>）。</li>
+<li>行为细节: 创建新的 <code>BigInteger</code>，设置结果符号并在结果为零时将符号设回正。</li>
+</ul>
+</li>
+<li>
+<p><strong><code>__sub__(self, other)</code></strong></p>
+<ul>
+<li>功能: 重载减法运算 <code>-</code>。</li>
+<li>算法: 将 <code>other</code> 取反后调用 <code>__add__</code>。</li>
+</ul>
+</li>
+<li>
+<p><strong><code>__mul__(self, other)</code></strong></p>
+<ul>
+<li>功能: 重载乘法 <code>*</code>。</li>
+<li>算法: 使用 <code>myMul</code> 对数位字符串做逐位乘法累加，结果符号为两个操作数符号的乘积；若结果为零设符号为正。</li>
+</ul>
+</li>
+<li>
+<p><strong><code>__pow__(self, other)</code></strong></p>
+<ul>
+<li>功能: 重载幂运算 <code>**</code>（注：<code>other</code> 是 Python 整数，不是 <code>BigInteger</code>）。</li>
+<li>算法: 使用快速幂算法：按位遍历 <code>other</code> 的二进制位，若当前位为 1，把 <code>ans</code> 乘以当前 <code>tmp</code>，每次把 <code>tmp</code> 平方，<code>other</code> 逐位右移。</li>
+</ul>
+</li>
+<li>
+<p><strong><code>__floordiv__(self, other)</code></strong></p>
+<ul>
+<li>功能: 重载整除 <code>//</code>。</li>
+<li>算法: 调用 <code>myDiv</code>，并根据符号设置结果，若结果为零则设为正。</li>
+</ul>
+</li>
+</ul>
+<h3 id="辅助方法（内部实现）">辅助方法（内部实现）:</h3>
+<ul>
+<li>
+<p><strong><code>compareAbs(self, other)</code></strong></p>
+<ul>
+<li>功能: 比较两个 <code>BigInteger</code> 的绝对值大小。</li>
+<li>返回: <code>1</code> 表示 <code>self</code> 的绝对值 &gt;= <code>other</code>，<code>0</code> 表示小于。</li>
+</ul>
+</li>
+<li>
+<p><strong><code>myPlus(num1, num2)</code></strong></p>
+<ul>
+<li>功能: 计算两个非负 <code>BigInteger</code> 的绝对值之和，返回字符串形式的数位（已格式化）。</li>
+<li>算法: 将两个数位反向遍历，用整数列表保存逐位和与进位，然后反转并转为字符串，最后调用 <code>formalizeDigits</code> 去除前导零。</li>
+<li>时间复杂度: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\mathcal O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathcal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span>。</li>
+</ul>
+</li>
+<li>
+<p><strong><code>mySub(num1, num2)</code></strong></p>
+<ul>
+<li>功能: 计算 <code>num1 - num2</code>（假设 |num1| &gt;= |num2|），返回格式化的数位字符串。</li>
+<li>算法: 逐位做减法并处理借位，最后格式化字符串。</li>
+<li>时间复杂度: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\mathcal O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathcal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span>。</li>
+</ul>
+</li>
+<li>
+<p><strong><code>myMul(num1, num2)</code></strong></p>
+<ul>
+<li>功能: 计算两个非负 <code>BigInteger</code> 的乘积，返回格式化的数位字符串。</li>
+<li>算法: 使用类似小学乘法的竖式运算：先把每一位数值放到倒序数组 <code>ans</code> 的合适位置，再做一次进位运算，最后拼接并格式化。</li>
+<li>时间复杂度: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">O</mi><mo stretchy="false">(</mo><msup><mi>n</mi><mn>2</mn></msup><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\mathcal O(n^2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0641em;vertical-align:-0.25em;"></span><span class="mord mathcal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>。</li>
+</ul>
+</li>
+<li>
+<p><strong><code>myDiv(num1, num2)</code></strong></p>
+<ul>
+<li>功能: 计算 <code>num1 // num2</code> 的绝对值结果字符串（假设 <code>num2 != 0</code>）。</li>
+<li>算法: 模拟长除法：逐位把被除数的数位加入 <code>remainder</code>（一个 <code>BigInteger</code>），然后在内层循环中反复用 <code>remainder -= num2</code> 来计数当前位商值，直到 <code>remainder &lt; num2</code>。</li>
+<li>错误处理: 若 <code>num2.digits == '0'</code> 抛出 <code>ZeroDivisionError</code>。</li>
+</ul>
+</li>
+<li>
+<p><strong><code>formalizeDigits(str)</code></strong></p>
+<ul>
+<li>功能: 去除字符串中的前导零，若所有位均为零则返回 <code>'0'</code>。</li>
+<li>用途: 用于输入规范化和算术结果的最终格式化。</li>
+</ul>
+</li>
+</ul>
+<h2 id="不足与展望">不足与展望</h2>
+<ul>
+<li><code>BigInteger</code> 类中使用字符数组表示每一位数字，计算时要经常调用 <code>ord(c) - ord('0')</code> 获取对应的 <code>0-9</code> 数字，在运算量较大时时间开销较大，在进行 <code>pow</code> 运算时尤为明显。</li>
+<li>有些地方不用进行前导零的判断和删除，但由于本人懒惰便统一加上，函数效率有待提高。</li>
+<li>为了操作简便，除法运算每一步均先化为 <code>BigInteger</code> ，再计算。若直接用 <code>list</code> 模拟可能会更快。</li>
+</ul>
+<h1>代码实现</h1>
+<figure><div class="code-wrapper"><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">BigInteger</span><span class="token punctuation">:</span>
+
+	<span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> val<span class="token punctuation">)</span><span class="token punctuation">:</span>  <span class="token comment"># 可以通过传入一个 str 或另一个 BigInteger 来创建对象</span>
+		<span class="token keyword">if</span> <span class="token builtin">isinstance</span><span class="token punctuation">(</span>val<span class="token punctuation">,</span> <span class="token builtin">str</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+			<span class="token keyword">if</span> val<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token string">'-'</span><span class="token punctuation">:</span>
+				sgn <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1</span>  <span class="token comment"># sgn > 0 表示非负</span>
+				self<span class="token punctuation">.</span>digits <span class="token operator">=</span> BigInteger<span class="token punctuation">.</span>formalizeDigits<span class="token punctuation">(</span>val<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+			<span class="token keyword">else</span><span class="token punctuation">:</span>
+				sgn <span class="token operator">=</span> <span class="token number">1</span>
+				self<span class="token punctuation">.</span>digits <span class="token operator">=</span> BigInteger<span class="token punctuation">.</span>formalizeDigits<span class="token punctuation">(</span>val<span class="token punctuation">)</span>
+			self<span class="token punctuation">.</span>sgn <span class="token operator">=</span> <span class="token number">1</span> <span class="token keyword">if</span> self<span class="token punctuation">.</span>digits <span class="token operator">==</span> <span class="token string">'0'</span> <span class="token keyword">else</span> sgn
+		<span class="token keyword">else</span><span class="token punctuation">:</span>
+			self<span class="token punctuation">.</span>digits <span class="token operator">=</span> val<span class="token punctuation">.</span>digits
+			self<span class="token punctuation">.</span>sgn <span class="token operator">=</span> val<span class="token punctuation">.</span>sgn
+
+	<span class="token keyword">def</span> <span class="token function">__getitem__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> key<span class="token punctuation">)</span><span class="token punctuation">:</span>  <span class="token comment"># 定义 BigInteger[...] 的行为，取出对应的数位</span>
+		<span class="token keyword">return</span> self<span class="token punctuation">.</span>digits<span class="token punctuation">[</span>key<span class="token punctuation">]</span>
+
+	<span class="token keyword">def</span> <span class="token function">__len__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>  <span class="token comment"># len(BigInteger)</span>
+		<span class="token keyword">return</span> <span class="token builtin">len</span><span class="token punctuation">(</span>self<span class="token punctuation">.</span>digits<span class="token punctuation">)</span>
+
+	<span class="token keyword">def</span> <span class="token function">__str__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>  <span class="token comment"># 加上正负号并转换为字符串</span>
+		<span class="token keyword">if</span> self<span class="token punctuation">.</span>digits <span class="token operator">==</span> <span class="token string">'0'</span><span class="token punctuation">:</span>
+			<span class="token keyword">return</span> <span class="token string">'0'</span>
+		resultStr <span class="token operator">=</span> <span class="token string">""</span>
+		<span class="token keyword">if</span> self<span class="token punctuation">.</span>sgn <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">:</span>
+			resultStr <span class="token operator">+=</span> <span class="token string">'-'</span>
+		resultStr <span class="token operator">+=</span> self<span class="token punctuation">.</span>digits
+		<span class="token keyword">return</span> resultStr
+
+	<span class="token keyword">def</span> <span class="token function">__add__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> other<span class="token punctuation">)</span><span class="token punctuation">:</span>  <span class="token comment"># '+'</span>
+		ans <span class="token operator">=</span> BigInteger<span class="token punctuation">(</span><span class="token string">'0'</span><span class="token punctuation">)</span>
+		<span class="token keyword">if</span> self<span class="token punctuation">.</span>sgn <span class="token operator">*</span> other<span class="token punctuation">.</span>sgn <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">:</span>
+			ans<span class="token punctuation">.</span>sgn <span class="token operator">=</span> self<span class="token punctuation">.</span>sgn
+			ans<span class="token punctuation">.</span>digits <span class="token operator">=</span> BigInteger<span class="token punctuation">.</span>myPlus<span class="token punctuation">(</span>self<span class="token punctuation">,</span> other<span class="token punctuation">)</span>
+		<span class="token keyword">elif</span> BigInteger<span class="token punctuation">.</span>compareAbs<span class="token punctuation">(</span>self<span class="token punctuation">,</span> other<span class="token punctuation">)</span><span class="token punctuation">:</span>
+			ans<span class="token punctuation">.</span>sgn <span class="token operator">=</span> self<span class="token punctuation">.</span>sgn
+			ans<span class="token punctuation">.</span>digits <span class="token operator">=</span> BigInteger<span class="token punctuation">.</span>mySub<span class="token punctuation">(</span>self<span class="token punctuation">,</span> other<span class="token punctuation">)</span>
+		<span class="token keyword">else</span><span class="token punctuation">:</span>
+			ans<span class="token punctuation">.</span>sgn <span class="token operator">=</span> other<span class="token punctuation">.</span>sgn
+			ans<span class="token punctuation">.</span>digits <span class="token operator">=</span> BigInteger<span class="token punctuation">.</span>mySub<span class="token punctuation">(</span>other<span class="token punctuation">,</span> self<span class="token punctuation">)</span>
+		<span class="token keyword">if</span> ans<span class="token punctuation">.</span>digits <span class="token operator">==</span> <span class="token string">'0'</span><span class="token punctuation">:</span>
+			ans<span class="token punctuation">.</span>sgn <span class="token operator">=</span> <span class="token number">1</span>
+		<span class="token keyword">return</span> ans
+
+	<span class="token keyword">def</span> <span class="token function">__sub__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> other<span class="token punctuation">)</span><span class="token punctuation">:</span>  <span class="token comment"># '-'</span>
+		other_neg <span class="token operator">=</span> BigInteger<span class="token punctuation">(</span>other<span class="token punctuation">)</span>
+		other_neg<span class="token punctuation">.</span>sgn <span class="token operator">*=</span> <span class="token operator">-</span><span class="token number">1</span>
+		<span class="token keyword">return</span> self <span class="token operator">+</span> other_neg
+
+	<span class="token keyword">def</span> <span class="token function">__mul__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> other<span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token comment"># '*'</span>
+		ans <span class="token operator">=</span> BigInteger<span class="token punctuation">(</span><span class="token string">'0'</span><span class="token punctuation">)</span>
+		ans<span class="token punctuation">.</span>sgn <span class="token operator">=</span> self<span class="token punctuation">.</span>sgn <span class="token operator">*</span> other<span class="token punctuation">.</span>sgn
+		ans<span class="token punctuation">.</span>digits <span class="token operator">=</span> BigInteger<span class="token punctuation">.</span>myMul<span class="token punctuation">(</span>self<span class="token punctuation">,</span> other<span class="token punctuation">)</span>
+		<span class="token keyword">if</span> ans<span class="token punctuation">.</span>digits <span class="token operator">==</span> <span class="token string">'0'</span><span class="token punctuation">:</span>
+			ans<span class="token punctuation">.</span>sgn <span class="token operator">=</span> <span class="token number">1</span>
+		<span class="token keyword">return</span> ans
+
+	<span class="token keyword">def</span> <span class="token function">__pow__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> other<span class="token punctuation">)</span><span class="token punctuation">:</span>  <span class="token comment"># '**'</span>
+		ans <span class="token operator">=</span> BigInteger<span class="token punctuation">(</span><span class="token string">'1'</span><span class="token punctuation">)</span>
+		tmp <span class="token operator">=</span> BigInteger<span class="token punctuation">(</span>self<span class="token punctuation">)</span>
+		<span class="token keyword">while</span> other <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">:</span>
+			<span class="token keyword">if</span> other <span class="token operator">&amp;</span> <span class="token number">1</span><span class="token punctuation">:</span>
+				ans <span class="token operator">=</span> ans <span class="token operator">*</span> tmp
+			tmp <span class="token operator">=</span> tmp <span class="token operator">*</span> tmp
+			other <span class="token operator">>></span><span class="token operator">=</span> <span class="token number">1</span>
+		<span class="token keyword">return</span> ans
+
+	<span class="token keyword">def</span> <span class="token function">__floordiv__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> other<span class="token punctuation">)</span><span class="token punctuation">:</span>  <span class="token comment"># '//'</span>
+		ans <span class="token operator">=</span> BigInteger<span class="token punctuation">(</span><span class="token string">'0'</span><span class="token punctuation">)</span>
+		ans<span class="token punctuation">.</span>sgn <span class="token operator">=</span> self<span class="token punctuation">.</span>sgn <span class="token operator">*</span> other<span class="token punctuation">.</span>sgn
+		ans<span class="token punctuation">.</span>digits <span class="token operator">=</span> BigInteger<span class="token punctuation">.</span>myDiv<span class="token punctuation">(</span>self<span class="token punctuation">,</span> other<span class="token punctuation">)</span>
+		<span class="token keyword">if</span> ans<span class="token punctuation">.</span>digits <span class="token operator">==</span> <span class="token string">'0'</span><span class="token punctuation">:</span>
+			ans<span class="token punctuation">.</span>sgn <span class="token operator">=</span> <span class="token number">1</span>
+		<span class="token keyword">return</span> ans
+
+	<span class="token comment"># 以下为辅助函数</span>
+
+	<span class="token keyword">def</span> <span class="token function">compareAbs</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> other<span class="token punctuation">)</span><span class="token punctuation">:</span>   <span class="token comment"># 比较两个 BigInteger 的绝对值大小, 返回 1 表示前者大</span>
+		<span class="token keyword">if</span> <span class="token builtin">len</span><span class="token punctuation">(</span>self<span class="token punctuation">.</span>digits<span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token builtin">len</span><span class="token punctuation">(</span>other<span class="token punctuation">.</span>digits<span class="token punctuation">)</span><span class="token punctuation">:</span>
+			<span class="token keyword">return</span> <span class="token number">1</span> <span class="token keyword">if</span> <span class="token builtin">len</span><span class="token punctuation">(</span>self<span class="token punctuation">.</span>digits<span class="token punctuation">)</span> <span class="token operator">></span> <span class="token builtin">len</span><span class="token punctuation">(</span>other<span class="token punctuation">.</span>digits<span class="token punctuation">)</span> <span class="token keyword">else</span> <span class="token number">0</span>
+		<span class="token keyword">return</span> <span class="token number">1</span> <span class="token keyword">if</span> self<span class="token punctuation">.</span>digits <span class="token operator">>=</span> other<span class="token punctuation">.</span>digits <span class="token keyword">else</span> <span class="token number">0</span>
+
+	<span class="token keyword">def</span> <span class="token function">myPlus</span><span class="token punctuation">(</span>num1<span class="token punctuation">,</span> num2<span class="token punctuation">)</span><span class="token punctuation">:</span>
+		maxLen <span class="token operator">=</span> <span class="token builtin">max</span><span class="token punctuation">(</span><span class="token builtin">len</span><span class="token punctuation">(</span>num1<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token builtin">len</span><span class="token punctuation">(</span>num2<span class="token punctuation">)</span><span class="token punctuation">)</span>
+		ans <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">*</span> <span class="token punctuation">(</span>maxLen <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span>
+		d1 <span class="token operator">=</span> num1<span class="token punctuation">.</span>digits<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span>  <span class="token comment"># 数位翻转</span>
+		d2 <span class="token operator">=</span> num2<span class="token punctuation">.</span>digits<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span>
+		<span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>maxLen<span class="token punctuation">)</span><span class="token punctuation">:</span>
+			<span class="token keyword">if</span> i <span class="token operator">&lt;</span> <span class="token builtin">len</span><span class="token punctuation">(</span>d1<span class="token punctuation">)</span><span class="token punctuation">:</span>
+				ans<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">+=</span> <span class="token builtin">ord</span><span class="token punctuation">(</span>d1<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token builtin">ord</span><span class="token punctuation">(</span><span class="token string">'0'</span><span class="token punctuation">)</span>
+			<span class="token keyword">if</span> i <span class="token operator">&lt;</span> <span class="token builtin">len</span><span class="token punctuation">(</span>d2<span class="token punctuation">)</span><span class="token punctuation">:</span>
+				ans<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">+=</span> <span class="token builtin">ord</span><span class="token punctuation">(</span>d2<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token builtin">ord</span><span class="token punctuation">(</span><span class="token string">'0'</span><span class="token punctuation">)</span>
+			<span class="token keyword">if</span> ans<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">>=</span> <span class="token number">10</span><span class="token punctuation">:</span>
+				ans<span class="token punctuation">[</span>i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">+=</span> <span class="token number">1</span>
+				ans<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">-=</span> <span class="token number">10</span>
+		resultStr <span class="token operator">=</span> <span class="token string">""</span><span class="token punctuation">.</span>join<span class="token punctuation">(</span><span class="token builtin">map</span><span class="token punctuation">(</span><span class="token builtin">str</span><span class="token punctuation">,</span> ans<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+		<span class="token keyword">return</span> BigInteger<span class="token punctuation">.</span>formalizeDigits<span class="token punctuation">(</span>resultStr<span class="token punctuation">)</span>
+
+	<span class="token keyword">def</span> <span class="token function">mySub</span><span class="token punctuation">(</span>num1<span class="token punctuation">,</span> num2<span class="token punctuation">)</span><span class="token punctuation">:</span>
+		maxLen <span class="token operator">=</span> <span class="token builtin">len</span><span class="token punctuation">(</span>num1<span class="token punctuation">)</span>
+		ans <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">*</span> <span class="token punctuation">(</span>maxLen <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span>
+		d1 <span class="token operator">=</span> num1<span class="token punctuation">.</span>digits<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span>
+		d2 <span class="token operator">=</span> num2<span class="token punctuation">.</span>digits<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span>
+		<span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>maxLen<span class="token punctuation">)</span><span class="token punctuation">:</span>
+			<span class="token keyword">if</span> i <span class="token operator">&lt;</span> <span class="token builtin">len</span><span class="token punctuation">(</span>d1<span class="token punctuation">)</span><span class="token punctuation">:</span>
+				ans<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">+=</span> <span class="token builtin">ord</span><span class="token punctuation">(</span>d1<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token builtin">ord</span><span class="token punctuation">(</span><span class="token string">'0'</span><span class="token punctuation">)</span>
+			<span class="token keyword">if</span> i <span class="token operator">&lt;</span> <span class="token builtin">len</span><span class="token punctuation">(</span>d2<span class="token punctuation">)</span><span class="token punctuation">:</span>
+				ans<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">-=</span> <span class="token builtin">ord</span><span class="token punctuation">(</span>d2<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token builtin">ord</span><span class="token punctuation">(</span><span class="token string">'0'</span><span class="token punctuation">)</span>
+			<span class="token keyword">if</span> ans<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">:</span>
+				ans<span class="token punctuation">[</span>i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">-=</span> <span class="token number">1</span>
+				ans<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">+=</span> <span class="token number">10</span>
+		resultStr <span class="token operator">=</span> <span class="token string">""</span><span class="token punctuation">.</span>join<span class="token punctuation">(</span><span class="token builtin">map</span><span class="token punctuation">(</span><span class="token builtin">str</span><span class="token punctuation">,</span> ans<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+		<span class="token keyword">return</span> BigInteger<span class="token punctuation">.</span>formalizeDigits<span class="token punctuation">(</span>resultStr<span class="token punctuation">)</span>
+
+	<span class="token keyword">def</span> <span class="token function">myMul</span><span class="token punctuation">(</span>num1<span class="token punctuation">,</span> num2<span class="token punctuation">)</span><span class="token punctuation">:</span>
+		maxLen <span class="token operator">=</span> <span class="token builtin">len</span><span class="token punctuation">(</span>num1<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token builtin">len</span><span class="token punctuation">(</span>num2<span class="token punctuation">)</span>
+		ans <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">*</span> <span class="token punctuation">(</span>maxLen <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span>
+		d1 <span class="token operator">=</span> num1<span class="token punctuation">.</span>digits<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span>
+		d2 <span class="token operator">=</span> num2<span class="token punctuation">.</span>digits<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span>
+		len1<span class="token punctuation">,</span> len2 <span class="token operator">=</span> <span class="token builtin">len</span><span class="token punctuation">(</span>d1<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token builtin">len</span><span class="token punctuation">(</span>d2<span class="token punctuation">)</span>
+		<span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>len2<span class="token punctuation">)</span><span class="token punctuation">:</span>
+			<span class="token keyword">for</span> j <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>len1<span class="token punctuation">)</span><span class="token punctuation">:</span>
+				ans<span class="token punctuation">[</span>i <span class="token operator">+</span> j<span class="token punctuation">]</span> <span class="token operator">+=</span> <span class="token punctuation">(</span><span class="token builtin">ord</span><span class="token punctuation">(</span>d2<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token builtin">ord</span><span class="token punctuation">(</span><span class="token string">'0'</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token punctuation">(</span><span class="token builtin">ord</span><span class="token punctuation">(</span>d1<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token builtin">ord</span><span class="token punctuation">(</span><span class="token string">'0'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+		<span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>maxLen <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+			<span class="token keyword">if</span> ans<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">>=</span> <span class="token number">10</span><span class="token punctuation">:</span>
+				ans<span class="token punctuation">[</span>i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">+=</span> ans<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">//</span> <span class="token number">10</span>
+				ans<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">%=</span> <span class="token number">10</span>
+		resultStr <span class="token operator">=</span> <span class="token string">""</span><span class="token punctuation">.</span>join<span class="token punctuation">(</span><span class="token builtin">map</span><span class="token punctuation">(</span><span class="token builtin">str</span><span class="token punctuation">,</span> ans<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+		<span class="token keyword">return</span> BigInteger<span class="token punctuation">.</span>formalizeDigits<span class="token punctuation">(</span>resultStr<span class="token punctuation">)</span>
+
+	<span class="token keyword">def</span> <span class="token function">myDiv</span><span class="token punctuation">(</span>num1<span class="token punctuation">,</span> num2<span class="token punctuation">)</span><span class="token punctuation">:</span>
+		<span class="token keyword">if</span> num2<span class="token punctuation">.</span>digits <span class="token operator">==</span> <span class="token string">'0'</span><span class="token punctuation">:</span>
+			<span class="token keyword">raise</span> ZeroDivisionError<span class="token punctuation">(</span><span class="token string">">_&lt; 除数不能为零"</span><span class="token punctuation">)</span>
+		<span class="token keyword">if</span> <span class="token keyword">not</span> BigInteger<span class="token punctuation">.</span>compareAbs<span class="token punctuation">(</span>num1<span class="token punctuation">,</span> num2<span class="token punctuation">)</span><span class="token punctuation">:</span>
+			<span class="token keyword">return</span> <span class="token string">'0'</span>
+		result_str <span class="token operator">=</span> <span class="token string">""</span>
+		remainder <span class="token operator">=</span> BigInteger<span class="token punctuation">(</span><span class="token string">'0'</span><span class="token punctuation">)</span>
+		<span class="token keyword">for</span> digit <span class="token keyword">in</span> num1<span class="token punctuation">.</span>digits<span class="token punctuation">:</span>
+			<span class="token keyword">if</span> remainder<span class="token punctuation">.</span>digits <span class="token operator">==</span> <span class="token string">'0'</span><span class="token punctuation">:</span>
+				remainder<span class="token punctuation">.</span>digits <span class="token operator">=</span> digit
+			<span class="token keyword">else</span><span class="token punctuation">:</span>
+				remainder<span class="token punctuation">.</span>digits <span class="token operator">+=</span> digit
+			current_digit <span class="token operator">=</span> <span class="token number">0</span>
+			<span class="token keyword">while</span> BigInteger<span class="token punctuation">.</span>compareAbs<span class="token punctuation">(</span>remainder<span class="token punctuation">,</span> num2<span class="token punctuation">)</span><span class="token punctuation">:</span>
+				remainder <span class="token operator">-=</span> num2
+				current_digit <span class="token operator">+=</span> <span class="token number">1</span>
+			result_str <span class="token operator">+=</span> <span class="token builtin">str</span><span class="token punctuation">(</span>current_digit<span class="token punctuation">)</span>
+		<span class="token keyword">return</span> BigInteger<span class="token punctuation">.</span>formalizeDigits<span class="token punctuation">(</span>result_str<span class="token punctuation">)</span>
+
+	<span class="token keyword">def</span> <span class="token function">formalizeDigits</span><span class="token punctuation">(</span><span class="token builtin">str</span><span class="token punctuation">)</span><span class="token punctuation">:</span>   <span class="token comment"># 去除输入、输出中可能存在的前导零</span>
+		i <span class="token operator">=</span> <span class="token number">0</span>
+		<span class="token keyword">while</span> i <span class="token operator">&lt;</span> <span class="token builtin">len</span><span class="token punctuation">(</span><span class="token builtin">str</span><span class="token punctuation">)</span> <span class="token keyword">and</span> <span class="token builtin">str</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token string">'0'</span><span class="token punctuation">:</span>
+			i <span class="token operator">+=</span> <span class="token number">1</span>
+		<span class="token keyword">return</span> <span class="token string">'0'</span> <span class="token keyword">if</span> i <span class="token operator">==</span> <span class="token builtin">len</span><span class="token punctuation">(</span><span class="token builtin">str</span><span class="token punctuation">)</span> <span class="token keyword">else</span> <span class="token builtin">str</span><span class="token punctuation">[</span>i<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Python/" class="print-no-link">#Python</a>
+      
+        <a href="/tags/CS/" class="print-no-link">#CS</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>大整数运算 BigInteger class 的 Python 实现</div>
+      <div>https://pvbelln.github.io/2025/12/04/py-bigint-class/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>PvbeLLN</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年12月4日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="NC - 非商业性使用">
+                    <i class="iconfont icon-cc-nc"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="SA - 相同方式共享">
+                    <i class="iconfont icon-cc-sa"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/10/16/sol-uva11496/" title="题解：UVA11496 Musical Loop">
+                        <span class="hidden-mobile">题解：UVA11496 Musical Loop</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+    <div id="giscus" class="giscus"></div>
+    <script type="text/javascript">
+      Fluid.utils.loadComments('#giscus', function() {
+        var options = {"repo":"pvbelln/giscus_discussions_blog","repo-id":"R_kgDOPGk08w","category":"Announcements","category-id":"DIC_kwDOPGk0884Cscr_","theme-light":"light","theme-dark":"dark","mapping":"title","reactions-enabled":1,"emit-metadata":0,"input-position":"top","lang":"zh-CN","theme":"preferred_color_scheme","loading":"lazy"};
+        var attributes = {};
+        for (let option in options) {
+          if (!option.startsWith('theme-')) {
+            var key = option.startsWith('data-') ? option : 'data-' + option;
+            attributes[key] = options[option];
+          }
+        }
+        var light = 'light';
+        var dark = 'dark';
+        window.GiscusThemeLight = light;
+        window.GiscusThemeDark = dark;
+        attributes['data-theme'] = document.documentElement.getAttribute('data-user-color-scheme') === 'dark' ? dark : light;
+        for (let attribute in attributes) {
+          var value = attributes[attribute];
+          if (value === undefined || value === null || value === '') {
+            delete attributes[attribute];
+          }
+        }
+        var s = document.createElement('script');
+        s.setAttribute('src', 'https://giscus.app/client.js');
+        s.setAttribute('crossorigin', 'anonymous');
+        for (let attribute in attributes) {
+          s.setAttribute(attribute, attributes[attribute]);
+        }
+        var ss = document.getElementsByTagName('script');
+        var e = ss.length > 0 ? ss[ss.length - 1] : document.head || document.documentElement;
+        e.parentNode.insertBefore(s, e.nextSibling);
+      });
+    </script>
+    <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       Made with <!--<i class="iconfont icon-love"></i>--> 💖 by PvbeLLN. <br> 框架 <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> | 主题 <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>. 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.staticfile.org/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.staticfile.org/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script  src="https://cdn.staticfile.org/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js" ></script>
+
+  <script src=https://cdn.staticfile.org/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.staticfile.org/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
