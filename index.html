@@ -215,6 +215,174 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
+        <a href="/2026/01/06/sol-uva599/" target="_self">
+          sol-uva599
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2026/01/06/sol-uva599/" target="_self">
+        <div>
+          UVA599 The Forrest for the Trees 题目大意 给定一个森林，分别求其中“树”和“孤立顶点”的个数。下图中，有 222 棵树和 111 个孤立顶点。  解题思路 注意到边的个数 EEE 和顶点的个数 VVV 都已经给出，因此可以求出连通分量的个数，即树和孤立顶点的总数， N=V−EN = V - EN=V−E。其中度数为 000 的所有顶点为孤立顶点，其余为树。 参考代
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2026-01-06 20:31" pubdate>
+              2026-01-06
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E9%A2%98%E8%A7%A3/">#题解</a>
+            
+              <a href="/tags/UVa/">#UVa</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2026/01/06/sol-uva11991/" target="_self">
+          sol-uva11991
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2026/01/06/sol-uva11991/" target="_self">
+        <div>
+          UVA11991 Easy Problem from Rujia Liu? 刘汝佳的简单题 题目大意 给定一列数，给出若干次询问，每次询问从左到右第 kkk 个 uuu 的下标。 解题思路 数据范围较大，直接用 O(n2)\mathcal O(n^2)O(n2) 的 ad-hoc 会超时。考虑使用邻接表优化，将复杂度降至 O(n)\mathcal O(n)O(n)。 对每一个数建立一个邻接表，第
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2026-01-06 20:22" pubdate>
+              2026-01-06
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E9%A2%98%E8%A7%A3/">#题解</a>
+            
+              <a href="/tags/UVa/">#UVa</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2026/01/06/sol-kattisWeakVert/" target="_self">
+          sol-kattisWeakVert
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2026/01/06/sol-kattisWeakVert/" target="_self">
+        <div>
+          Weak Vertices (weakvertices) 题目大意 给定一张无向图 GGG，找出所有不属于任何一个三元环的顶点。 解题思路 使用邻接矩阵记录图中所有的边，使用邻接表记录每个顶点的“邻居”顶点 某顶点 VVV 在一个三元环上，当且仅当：  deg⁡(V)≥2\deg(V) \ge 2deg(V)≥2 （但这一点不用显式判断） ∃(V,V1),(V,V2)∈G⇒(V1,V2)∈G\ex
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2026-01-06 20:02" pubdate>
+              2026-01-06
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Kattis/">#Kattis</a>
+            
+              <a href="/tags/%E9%A2%98%E8%A7%A3/">#题解</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2026/01/06/sol-uva1197/" target="_self">
+          sol-uva1197
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2026/01/06/sol-uva1197/" target="_self">
+        <div>
+          UVA1197 The Suspects 题目大意 有某种传染性很强的神秘疾病在某校学生中传播。学校里有若干团体，只要有一人是“密接”，那么团体内的其他所有人都是“密接”。一个学生可能属于多个团体。现给出学校内所有团体的成员信息，并已知学生 000 是“密接”，求校内“密接”的个数。 解题思路 可以说是并查集的模板题。每次将一个团体内的同学的所在组合并，最后检查和 000 在一组的同学个数即为答案
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2026-01-06 19:51" pubdate>
+              2026-01-06
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E9%A2%98%E8%A7%A3/">#题解</a>
+            
+              <a href="/tags/UVa/">#UVa</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
         <a href="/2025/12/04/py-bigint-class/" target="_self">
           大整数运算 BigInteger class 的 Python 实现
         </a>
@@ -283,9 +451,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/OI/">#OI</a>
-            
               <a href="/tags/%E9%A2%98%E8%A7%A3/">#题解</a>
+            
+              <a href="/tags/UVa/">#UVa</a>
             
           </div>
         
@@ -325,9 +493,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/OI/">#OI</a>
-            
               <a href="/tags/%E9%A2%98%E8%A7%A3/">#题解</a>
+            
+              <a href="/tags/UVa/">#UVa</a>
             
           </div>
         
@@ -367,9 +535,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/OI/">#OI</a>
-            
               <a href="/tags/%E9%A2%98%E8%A7%A3/">#题解</a>
+            
+              <a href="/tags/UVa/">#UVa</a>
             
           </div>
         
@@ -461,177 +629,11 @@
     </article>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/07/15/sol-uva114/" target="_self">
-          题解：UVA114 Simulation Wizardry
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/07/15/sol-uva114/" target="_self">
-        <div>
-          UVA114 一道十分烦的模拟题 题意简述 模拟一盘弹珠游戏，游戏在一个 m×nm \times nm×n 的网格中进行。最外面一圈是墙，里面某些位置有 bumper。弹珠从某位置以某方向射入，撞到墙或 bumper 后，方向会顺时针转 90∘90 ^ \circ90∘。 弹珠有一个 life 值，每次移动一格消耗 111 点 life。墙和每个 bumper 各有一个伤害值，每次弹珠撞到它们会被
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-07-15 22:41" pubdate>
-              2025-07-15
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/OI/">#OI</a>
-            
-              <a href="/tags/%E9%A2%98%E8%A7%A3/">#题解</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/07/15/sol-uva11459/" target="_self">
-          题解：UVA11459 Snakes and Ladders
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/07/15/sol-uva11459/" target="_self">
-        <div>
-          UVA11459 蛇梯棋 大概是长这样子的  题目大意 有一种类似飞行棋的游戏，棋盘上有 100100100 个格子，从 1∼1001 \sim 1001∼100 编号。若干个玩家轮流掷色子，每次按照掷得的点数将自己的棋子前进若干格。棋盘上有若干个传送门，可将位于格子 aaa 的棋子立刻传送至格子 bbb。最先到达格子 100100100 的玩家获胜，此时游戏立刻终止。保证格子 100100100
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-07-15 22:27" pubdate>
-              2025-07-15
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/OI/">#OI</a>
-            
-              <a href="/tags/%E9%A2%98%E8%A7%A3/">#题解</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/07/11/sol-uva10849/" target="_self">
-          题解：UVA10849 Move the bishop
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/07/11/sol-uva10849/" target="_self">
-        <div>
-          UVA10849 Move the bishop 题目大意 给定一张 N×NN \times NN×N 的空棋盘。你有一个“象”，要从位置 A(x1,y1)A(x_1,y_1)A(x1​,y1​) 走到位置 B(x2,y2)B(x_2,y_2)B(x2​,y2​)，问最少要几步。 题目分析 首先我们来看一张棋盘，象在位置 (2,5)(2,5)(2,5)。  注意到象只能沿对角线走，那么象只能到达和
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-07-11 23:06" pubdate>
-              2025-07-11
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/OI/">#OI</a>
-            
-              <a href="/tags/%E9%A2%98%E8%A7%A3/">#题解</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/07/07/vpn/" target="_self">
-          机场记录
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/07/07/vpn/" target="_self">
-        <div>
-          次元雲☁️  TG 群组：@ciyy2025 地址发布页：https://ciyydoor.men  价格实惠，有人维护，便于联系 有时不稳定 龙猫云  国内稳定地址1：https://totorocloud.net 国内稳定地址2：https://web01.lmspeed.co 上次访问地址：https://w03.lmva-hezb02.cc  桔子云  https://jzy66222.x
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-07-07 23:07" pubdate>
-              2025-07-07
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/VPN/">#VPN</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/#board">2</a><a class="extend next" rel="next" href="/page/2/#board"><i class="iconfont icon-arrowright"></i></a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/#board">2</a><a class="page-number" href="/page/3/#board">3</a><a class="extend next" rel="next" href="/page/2/#board"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
 

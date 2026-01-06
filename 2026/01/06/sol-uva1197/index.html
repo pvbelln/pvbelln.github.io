@@ -19,15 +19,15 @@
   <meta name="author" content="PvbeLLN">
   <meta name="keywords" content="">
   
-    <meta name="description" content="UVA10295 Hay Points 题目大意 给定一个单词表，以及表内每个单词的权值。 给定若干篇文章。定义一篇文章的得分为出现的所有单词的权值和（不在单词表内的单词的权值为 000），求出每篇文章的得分。 思路 可以说是 std::map 的模板题。 具体来说，建立一个 std::string 到 int 的映射，记录每个单词的权值。 输入文章时，依次检查每个单词是否在 map 中有映射，有">
+    <meta name="description" content="UVA1197 The Suspects 题目大意 有某种传染性很强的神秘疾病在某校学生中传播。学校里有若干团体，只要有一人是“密接”，那么团体内的其他所有人都是“密接”。一个学生可能属于多个团体。现给出学校内所有团体的成员信息，并已知学生 000 是“密接”，求校内“密接”的个数。 解题思路 可以说是并查集的模板题。每次将一个团体内的同学的所在组合并，最后检查和 000 在一组的同学个数即为答案">
 <meta property="og:type" content="article">
-<meta property="og:title" content="题解：UVA10295 Hay Points">
-<meta property="og:url" content="https://pvbelln.github.io/2025/07/05/sol-uva10295/index.html">
+<meta property="og:title" content="sol-uva1197">
+<meta property="og:url" content="https://pvbelln.github.io/2026/01/06/sol-uva1197/index.html">
 <meta property="og:site_name" content="PvbeLLN&#39;s Blog">
-<meta property="og:description" content="UVA10295 Hay Points 题目大意 给定一个单词表，以及表内每个单词的权值。 给定若干篇文章。定义一篇文章的得分为出现的所有单词的权值和（不在单词表内的单词的权值为 000），求出每篇文章的得分。 思路 可以说是 std::map 的模板题。 具体来说，建立一个 std::string 到 int 的映射，记录每个单词的权值。 输入文章时，依次检查每个单词是否在 map 中有映射，有">
+<meta property="og:description" content="UVA1197 The Suspects 题目大意 有某种传染性很强的神秘疾病在某校学生中传播。学校里有若干团体，只要有一人是“密接”，那么团体内的其他所有人都是“密接”。一个学生可能属于多个团体。现给出学校内所有团体的成员信息，并已知学生 000 是“密接”，求校内“密接”的个数。 解题思路 可以说是并查集的模板题。每次将一个团体内的同学的所在组合并，最后检查和 000 在一组的同学个数即为答案">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2025-07-05T04:47:13.000Z">
-<meta property="article:modified_time" content="2026-01-06T12:03:37.765Z">
+<meta property="article:published_time" content="2026-01-06T11:51:26.000Z">
+<meta property="article:modified_time" content="2026-01-06T12:01:48.256Z">
 <meta property="article:author" content="PvbeLLN">
 <meta property="article:tag" content="题解">
 <meta property="article:tag" content="UVa">
@@ -35,7 +35,7 @@
   
   
   
-  <title>题解：UVA10295 Hay Points - PvbeLLN&#39;s Blog</title>
+  <title>sol-uva1197 - PvbeLLN&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -193,7 +193,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="题解：UVA10295 Hay Points"></span>
+            <span id="subtitle" data-typed-text="sol-uva1197"></span>
           
         </div>
 
@@ -204,8 +204,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-07-05 12:47" pubdate>
-          2025年7月5日 下午
+        <time datetime="2026-01-06 19:51" pubdate>
+          2026年1月6日 晚上
         </time>
       </span>
     
@@ -216,7 +216,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          347 字
+          311 字
         
       </span>
     
@@ -264,69 +264,82 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">题解：UVA10295 Hay Points</h1>
+            <h1 id="seo-header">sol-uva1197</h1>
             
             
               <div class="markdown-body">
                 
-                <h1>UVA10295 Hay Points</h1>
+                <h1>UVA1197 The Suspects</h1>
 <h2 id="题目大意">题目大意</h2>
-<p>给定一个单词表，以及表内每个单词的权值。</p>
-<p>给定若干篇文章。定义一篇文章的得分为出现的所有单词的<strong>权值和</strong>（不在单词表内的单词的权值为 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0</span></span></span></span>），求出每篇文章的得分。</p>
-<h2 id="思路">思路</h2>
-<p>可以说是 <code>std::map</code> 的模板题。</p>
-<p>具体来说，建立一个 <code>std::string</code> 到 <code>int</code> 的映射，记录每个单词的权值。</p>
-<p>输入文章时，依次检查每个单词是否在 <code>map</code> 中有映射，有则将对应的权值加到答案中即可。</p>
-<p>一个小的优化是，可以使用 C++11 中加入的基于 hash 的 <code>std::unordered_map</code>，将单次查询的平均时间复杂度降至 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\mathcal{O}(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathcal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span>。</p>
-<figure><div class="code-wrapper"><pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">// Problem: Hay Points</span>
-<span class="token comment">// Contest: POJ - Waterloo local 2002.07.01</span>
-<span class="token comment">// URL: http://poj.org/problem?id=2403</span>
-<span class="token comment">// Create Time: 2024-11-19 23:44:39</span>
-
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">&lt;iostream></span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">&lt;cstring></span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">&lt;cstdio></span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">&lt;stack></span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">&lt;queue></span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">&lt;algorithm></span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">&lt;cmath></span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">&lt;vector></span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">&lt;unordered_map></span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">map</span> <span class="token expression">unordered_map</span></span>
+<p>有某种传染性很强的神秘疾病在某校学生中传播。学校里有若干团体，只要有一人是“密接”，那么团体内的其他所有人都是“密接”。一个学生可能属于多个团体。现给出学校内所有团体的成员信息，并已知学生 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0</span></span></span></span> 是“密接”，求校内“密接”的个数。</p>
+<h2 id="解题思路">解题思路</h2>
+<p>可以说是<a target="_blank" rel="noopener" href="https://oi-wiki.org/ds/dsu/"><strong>并查集</strong></a>的模板题。每次将一个团体内的同学的所在组合并，最后检查和 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0</span></span></span></span> 在一组的同学个数即为答案。</p>
+<h2 id="参考代码">参考代码</h2>
+<figure><div class="code-wrapper"><pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;algorithm></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;cmath></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;cstdio></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;cstring></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;queue></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;numeric></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;vector></span></span>
+<span class="token comment">// #include&lt;unordered_map></span>
+<span class="token comment">// #define map unordered_map</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">ifdef</span> <span class="token expression">ONLINE_JUDGE</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span>    <span class="token directive keyword">define</span> <span class="token macro-name">getchar</span> <span class="token expression">getchar_unlocked</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">endif</span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
 <span class="token comment">/*================*/</span>
 
 <span class="token keyword">inline</span> <span class="token keyword">int</span> <span class="token function">read</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-	<span class="token keyword">char</span> c<span class="token operator">=</span><span class="token function">getchar</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token keyword">int</span> x<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">,</span>f<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>
-	<span class="token keyword">for</span><span class="token punctuation">(</span><span class="token punctuation">;</span><span class="token operator">!</span><span class="token function">isdigit</span><span class="token punctuation">(</span>c<span class="token punctuation">)</span><span class="token punctuation">;</span>c<span class="token operator">=</span><span class="token function">getchar</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token keyword">if</span><span class="token punctuation">(</span>c<span class="token operator">==</span><span class="token char">'-'</span><span class="token punctuation">)</span>f<span class="token operator">=</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
-	<span class="token keyword">for</span><span class="token punctuation">(</span><span class="token punctuation">;</span><span class="token function">isdigit</span><span class="token punctuation">(</span>c<span class="token punctuation">)</span><span class="token punctuation">;</span>c<span class="token operator">=</span><span class="token function">getchar</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>x<span class="token operator">=</span>x<span class="token operator">*</span><span class="token number">10</span><span class="token operator">+</span>c<span class="token operator">-</span><span class="token number">48</span><span class="token punctuation">;</span>
-	<span class="token keyword">return</span> x<span class="token operator">*</span>f<span class="token punctuation">;</span>
+    <span class="token keyword">char</span> c <span class="token operator">=</span> <span class="token function">getchar</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span>  x <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> f <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token punctuation">;</span> <span class="token operator">!</span><span class="token function">isdigit</span><span class="token punctuation">(</span>c<span class="token punctuation">)</span><span class="token punctuation">;</span> c <span class="token operator">=</span> <span class="token function">getchar</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>c <span class="token operator">==</span> <span class="token char">'-'</span><span class="token punctuation">)</span> f <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token punctuation">;</span> <span class="token function">isdigit</span><span class="token punctuation">(</span>c<span class="token punctuation">)</span><span class="token punctuation">;</span> c <span class="token operator">=</span> <span class="token function">getchar</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> x <span class="token operator">=</span> x <span class="token operator">*</span> <span class="token number">10</span> <span class="token operator">+</span> c <span class="token operator">-</span> <span class="token number">48</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> x <span class="token operator">*</span> f<span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span>
 
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name function">r</span><span class="token expression"><span class="token punctuation">(</span>a<span class="token punctuation">)</span> <span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token operator">=</span><span class="token function">read</span><span class="token punctuation">(</span><span class="token punctuation">)</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name function">r</span><span class="token expression"><span class="token punctuation">(</span>a<span class="token punctuation">)</span> <span class="token punctuation">(</span>a<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token function">read</span><span class="token punctuation">(</span><span class="token punctuation">)</span></span></span>
 
-<span class="token keyword">int</span> m<span class="token punctuation">,</span>n<span class="token punctuation">,</span>a<span class="token punctuation">,</span>tot<span class="token punctuation">;</span>
-string s<span class="token punctuation">;</span>
-map<span class="token operator">&lt;</span>string<span class="token punctuation">,</span><span class="token keyword">int</span><span class="token operator">></span> mp<span class="token punctuation">;</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">MAXN</span> <span class="token expression"><span class="token number">30005</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">MAXM</span> <span class="token expression"><span class="token number">505</span></span></span>
+
+<span class="token keyword">int</span> n<span class="token punctuation">,</span> m<span class="token punctuation">,</span> x<span class="token punctuation">,</span> u<span class="token punctuation">,</span> ans<span class="token punctuation">;</span>
+<span class="token keyword">int</span> fa<span class="token punctuation">[</span>MAXN<span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+<span class="token keyword">int</span> <span class="token function">find</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+	<span class="token keyword">return</span> fa<span class="token punctuation">[</span>x<span class="token punctuation">]</span> <span class="token operator">==</span> x <span class="token operator">?</span> x <span class="token operator">:</span> fa<span class="token punctuation">[</span>x<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">find</span><span class="token punctuation">(</span>fa<span class="token punctuation">[</span>x<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
 
 <span class="token keyword">signed</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-	ios<span class="token double-colon punctuation">::</span><span class="token function">sync_with_stdio</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-	cin<span class="token punctuation">.</span><span class="token function">tie</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span> cout<span class="token punctuation">.</span><span class="token function">tie</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-	cin<span class="token operator">>></span>m<span class="token operator">>></span>n<span class="token punctuation">;</span>
-	<span class="token keyword">while</span> <span class="token punctuation">(</span>m<span class="token operator">--</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-		cin<span class="token operator">>></span>s<span class="token operator">>></span>a<span class="token punctuation">;</span>
-		mp<span class="token punctuation">[</span>s<span class="token punctuation">]</span><span class="token operator">=</span>a<span class="token punctuation">;</span>  <span class="token comment">//建立映射关系</span>
-	<span class="token punctuation">&#125;</span>
-	<span class="token keyword">while</span> <span class="token punctuation">(</span>cin<span class="token operator">>></span>s<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-		<span class="token keyword">if</span> <span class="token punctuation">(</span>s<span class="token operator">==</span><span class="token string">"."</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-			cout<span class="token operator">&lt;&lt;</span>tot<span class="token operator">&lt;&lt;</span><span class="token string">"\n"</span><span class="token punctuation">;</span>
-			tot<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
+	<span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+		<span class="token function">r</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token function">r</span><span class="token punctuation">(</span>m<span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token punctuation">(</span>m <span class="token operator">+</span> n<span class="token punctuation">)</span><span class="token punctuation">)</span>
+			<span class="token keyword">break</span><span class="token punctuation">;</span>
+		<span class="token function">iota</span><span class="token punctuation">(</span>fa<span class="token punctuation">,</span> fa <span class="token operator">+</span> n<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		ans <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+		<span class="token keyword">while</span> <span class="token punctuation">(</span>m<span class="token operator">--</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+			<span class="token keyword">int</span> cnt <span class="token operator">=</span> <span class="token function">read</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+			<span class="token function">r</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">;</span>
+			cnt<span class="token operator">--</span><span class="token punctuation">;</span>
+			<span class="token keyword">int</span> root <span class="token operator">=</span> <span class="token function">find</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">;</span>
+			<span class="token keyword">while</span> <span class="token punctuation">(</span>cnt<span class="token operator">--</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+				<span class="token function">r</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">;</span>
+				u <span class="token operator">=</span> <span class="token function">find</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">;</span>
+				<span class="token keyword">if</span> <span class="token punctuation">(</span>u <span class="token operator">==</span> root<span class="token punctuation">)</span>
+					<span class="token keyword">continue</span><span class="token punctuation">;</span>
+				fa<span class="token punctuation">[</span>u<span class="token punctuation">]</span> <span class="token operator">=</span> root<span class="token punctuation">;</span>
+			<span class="token punctuation">&#125;</span>
 		<span class="token punctuation">&#125;</span>
-		<span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>mp<span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span><span class="token operator">!=</span>mp<span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>  <span class="token comment">//查找是否存在映射</span>
-			tot<span class="token operator">+=</span>mp<span class="token punctuation">[</span>s<span class="token punctuation">]</span><span class="token punctuation">;</span>
+		<span class="token keyword">int</span> targ <span class="token operator">=</span> <span class="token function">find</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+			<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">find</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span> <span class="token operator">==</span> targ<span class="token punctuation">)</span>
+				ans<span class="token operator">++</span><span class="token punctuation">;</span>
+		<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span> ans<span class="token punctuation">)</span><span class="token punctuation">;</span>
 	<span class="token punctuation">&#125;</span>
 	<span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
                 
               </div>
             
@@ -352,8 +365,8 @@ map<span class="token operator">&lt;</span>string<span class="token punctuation"
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>题解：UVA10295 Hay Points</div>
-      <div>https://pvbelln.github.io/2025/07/05/sol-uva10295/</div>
+      <div>sol-uva1197</div>
+      <div>https://pvbelln.github.io/2026/01/06/sol-uva1197/</div>
     </div>
     <div class="license-meta">
       
@@ -365,7 +378,7 @@ map<span class="token operator">&lt;</span>string<span class="token punctuation"
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年7月5日</div>
+          <div>2026年1月6日</div>
         </div>
       
       
@@ -409,9 +422,9 @@ map<span class="token operator">&lt;</span>string<span class="token punctuation"
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/07/05/sol-uva11614/" title="题解：UVA11614 Etruscan Warriors Never Play Chess">
+                      <a href="/2026/01/06/sol-kattisWeakVert/" title="sol-kattisWeakVert">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">题解：UVA11614 Etruscan Warriors Never Play Chess</span>
+                        <span class="hidden-mobile">sol-kattisWeakVert</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -419,8 +432,8 @@ map<span class="token operator">&lt;</span>string<span class="token punctuation"
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/07/05/sol-uva11723/" title="题解：UVA11723 Numbering Roads">
-                        <span class="hidden-mobile">题解：UVA11723 Numbering Roads</span>
+                      <a href="/2025/12/04/py-bigint-class/" title="大整数运算 BigInteger class 的 Python 实现">
+                        <span class="hidden-mobile">大整数运算 BigInteger class 的 Python 实现</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

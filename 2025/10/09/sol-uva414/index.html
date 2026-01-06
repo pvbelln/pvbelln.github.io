@@ -27,10 +27,10 @@
 <meta property="og:description" content="UVA414 Machined Surfaces 题目大意 给出一个零件的左右两半，用 X 表示零件，用空格表示空隙。询问如果将左右两边拼合起来后空隙（即空格）的数目。 解题思路 考虑使用 minnminnminn 记录两部分在每行上的最短间隔，即每行上空格的最少数目，并用 tottottot 记录空格的总数。显然两个零件最多可以“相互靠近” minnminnminn 格而不发生重叠。定义行数 N">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-10-09T08:05:43.000Z">
-<meta property="article:modified_time" content="2025-10-09T08:15:45.631Z">
+<meta property="article:modified_time" content="2026-01-06T12:03:24.063Z">
 <meta property="article:author" content="PvbeLLN">
-<meta property="article:tag" content="OI">
 <meta property="article:tag" content="题解">
+<meta property="article:tag" content="UVa">
 <meta name="twitter:card" content="summary_large_image">
   
   
@@ -269,12 +269,12 @@
             
               <div class="markdown-body">
                 
-                <h2 id="UVA414-Machined-Surfaces">UVA414 Machined Surfaces</h2>
-<h3 id="题目大意">题目大意</h3>
+                <h1>UVA414 Machined Surfaces</h1>
+<h2 id="题目大意">题目大意</h2>
 <p>给出一个零件的左右两半，用 <code>X</code> 表示零件，用空格表示空隙。询问如果将左右两边拼合起来后空隙（即空格）的数目。</p>
-<h3 id="解题思路">解题思路</h3>
+<h2 id="解题思路">解题思路</h2>
 <p>考虑使用 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mi>i</mi><mi>n</mi><mi>n</mi></mrow><annotation encoding="application/x-tex">minn</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6595em;"></span><span class="mord mathnormal">minn</span></span></span></span> 记录两部分在每行上的最短间隔，即每行上空格的最少数目，并用 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mi>o</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">tot</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6151em;"></span><span class="mord mathnormal">t</span><span class="mord mathnormal">o</span><span class="mord mathnormal">t</span></span></span></span> 记录空格的总数。显然两个零件最多可以“相互靠近” <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mi>i</mi><mi>n</mi><mi>n</mi></mrow><annotation encoding="application/x-tex">minn</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6595em;"></span><span class="mord mathnormal">minn</span></span></span></span> 格而不发生重叠。定义行数 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span></span></span></span>，则两部分拼合后空格的数目为 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mi>o</mi><mi>t</mi><mo>−</mo><mi>m</mi><mi>i</mi><mi>n</mi><mi>n</mi><mo>×</mo><mi>N</mi></mrow><annotation encoding="application/x-tex">tot - minn \times N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6984em;vertical-align:-0.0833em;"></span><span class="mord mathnormal">t</span><span class="mord mathnormal">o</span><span class="mord mathnormal">t</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7429em;vertical-align:-0.0833em;"></span><span class="mord mathnormal">minn</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span></span></span></span>。</p>
-<h3 id="代码">代码</h3>
+<h2 id="代码">代码</h2>
 <figure><div class="code-wrapper"><pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">// Problem: UVA414 Machined Surfaces</span>
 <span class="token comment">// Contest: Luogu</span>
 <span class="token comment">// URL: https://www.luogu.com.cn/problem/UVA414</span>
@@ -334,9 +334,9 @@ string s<span class="token punctuation">;</span>
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/OI/" class="print-no-link">#OI</a>
-      
         <a href="/tags/%E9%A2%98%E8%A7%A3/" class="print-no-link">#题解</a>
+      
+        <a href="/tags/UVa/" class="print-no-link">#UVa</a>
       
     </div>
   
