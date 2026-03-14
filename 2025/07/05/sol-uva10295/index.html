@@ -27,7 +27,7 @@
 <meta property="og:description" content="UVA10295 Hay Points 题目大意 给定一个单词表，以及表内每个单词的权值。 给定若干篇文章。定义一篇文章的得分为出现的所有单词的权值和（不在单词表内的单词的权值为 000），求出每篇文章的得分。 思路 可以说是 std::map 的模板题。 具体来说，建立一个 std::string 到 int 的映射，记录每个单词的权值。 输入文章时，依次检查每个单词是否在 map 中有映射，有">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-07-05T04:47:13.000Z">
-<meta property="article:modified_time" content="2026-01-06T12:03:37.765Z">
+<meta property="article:modified_time" content="2026-03-14T15:38:34.954Z">
 <meta property="article:author" content="PvbeLLN">
 <meta property="article:tag" content="题解">
 <meta property="article:tag" content="UVa">
@@ -216,7 +216,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          347 字
+          327 字
         
       </span>
     
@@ -278,12 +278,7 @@
 <p>具体来说，建立一个 <code>std::string</code> 到 <code>int</code> 的映射，记录每个单词的权值。</p>
 <p>输入文章时，依次检查每个单词是否在 <code>map</code> 中有映射，有则将对应的权值加到答案中即可。</p>
 <p>一个小的优化是，可以使用 C++11 中加入的基于 hash 的 <code>std::unordered_map</code>，将单次查询的平均时间复杂度降至 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\mathcal{O}(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathcal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span>。</p>
-<figure><div class="code-wrapper"><pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">// Problem: Hay Points</span>
-<span class="token comment">// Contest: POJ - Waterloo local 2002.07.01</span>
-<span class="token comment">// URL: http://poj.org/problem?id=2403</span>
-<span class="token comment">// Create Time: 2024-11-19 23:44:39</span>
-
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">&lt;iostream></span></span>
+<figure><div class="code-wrapper"><pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">&lt;iostream></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">&lt;cstring></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">&lt;cstdio></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">&lt;stack></span></span>
@@ -326,7 +321,7 @@ map<span class="token operator">&lt;</span>string<span class="token punctuation"
 			tot<span class="token operator">+=</span>mp<span class="token punctuation">[</span>s<span class="token punctuation">]</span><span class="token punctuation">;</span>
 	<span class="token punctuation">&#125;</span>
 	<span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
                 
               </div>
             
